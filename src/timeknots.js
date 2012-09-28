@@ -68,10 +68,11 @@ var TimeKnots = {
         }
         return Math.floor(cfg.w/2)
     }).on("mouseover", function(d){
+      var format = d3.time.format("%Y/%m/%d %H:%M:%S");
       d3.select(this)
       .style("fill", cfg.color).transition()
       .duration(100).attr("r", Math.floor(cfg.radius*1.5));
-      tip.html( d.name +" <small>("+d.date+")</small>") 
+      tip.html( d.name +" <small>("+format(new Date(d.date))+")</small>") 
       .transition()
       .duration(100)
       .style("opacity", .9);
