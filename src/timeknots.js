@@ -39,6 +39,7 @@ var TimeKnots = {
     var minValue = d3.min(timestamps);
     var margin = cfg.radius+cfg.lineWidth;
     var step = (cfg.horizontalLayout)?((cfg.w-2*margin)/(maxValue - minValue)):((cfg.h-2*margin)/(maxValue - minValue));
+    if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.w/2}else{margin=cfg.h/2}}
     svg.append("line")
     .attr("class", "timeline-line")
     .attr("x1", function(d){if(cfg.horizontalLayout){return (margin)} return Math.floor(cfg.w/2)})
