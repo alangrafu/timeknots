@@ -1,7 +1,7 @@
 <html>
 <head>
 <script src="http://d3js.org/d3.v2.js"></script>
-<script src="../src/timeknots-min.js"></script>
+<script src="../src/timeknots.js"></script>
 </head>
 <body>
 <h1>Stanley Kubrick's movies</h1>
@@ -20,7 +20,7 @@ var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26"},
   {name:"Killer's Kiss", date:	"1955-09-28"}
 ];
 
-TimeKnots.draw("#timeline1", kurbickFilms);
+TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y"});
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},

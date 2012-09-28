@@ -7,7 +7,8 @@ var TimeKnots = {
       lineWidth: 4,
       color: "#999",
       background: "#FFF",
-      horizontalLayout: true 
+      dateFormat: "%Y/%m/%d %H:%M:%S",
+      horizontalLayout: true
     };
     
     
@@ -68,7 +69,7 @@ var TimeKnots = {
         }
         return Math.floor(cfg.w/2)
     }).on("mouseover", function(d){
-      var format = d3.time.format("%Y/%m/%d %H:%M:%S");
+      var format = d3.time.format(cfg.dateFormat);
       d3.select(this)
       .style("fill", cfg.color).transition()
       .duration(100).attr("r", Math.floor(cfg.radius*1.5));
