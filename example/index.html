@@ -1,0 +1,41 @@
+<html>
+<head>
+<script src="http://d3js.org/d3.v2.js"></script>
+<script src="../src/timeknots-min.js"></script>
+</head>
+<body>
+<h1>Stanley Kubrick's movies</h1>
+<div id="timeline1" style="width:500px;height: 200px;"></div>
+<h1>My schedule</h1>
+<div id="timeline2" style="width:200px;height: 900px;"></div>
+
+<script type="text/javascript">
+
+var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26"},
+  {name:"The Seafarers", 	date:"1953-10-15"},
+  {name:"Lolita (1962 film)", 	date:"1962-06-13"},
+  {name:"Fear and Desire", date:	"1953-03-31"},
+  {name:"Paths of Glory", date:	"1957-12-25"},
+  {name:"A Clockwork Orange (film)", date:	"1971-12-19"},
+  {name:"Killer's Kiss", date:	"1955-09-28"}
+];
+
+TimeKnots.draw("#timeline1", kurbickFilms);
+
+var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
+  {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
+  {name:"Leave kids at school", 	date:"2012-09-28T07:45:00"},
+  {name:"Check email", date:	"2012-09-28T08:00:00"},
+  {name:"Lunch", date:	"2012-09-28T11:30:00"},
+  {name:"Send report", date:	"2012-09-28T13:15:00"},
+  {name:"Pick kids", date:	"2012-09-28T17:16:00"},
+  {name:"Dinner", date:	"2012-09-28T18:13:00"},
+  {name:"Watch a movie", date:	"2012-09-28T20:16:00"},
+  {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
+];
+TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", h: 900});
+</script>
+
+</body>
+</html>
+
