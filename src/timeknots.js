@@ -37,7 +37,7 @@ var TimeKnots = {
     var timestamps = events.map(function(d){return  Date.parse(d.date);});//new Date(d.date).getTime()});
     var maxValue = d3.max(timestamps);
     var minValue = d3.min(timestamps);
-    var margin = cfg.radius+cfg.lineWidth;
+    var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)+cfg.lineWidth;
     var step = (cfg.horizontalLayout)?((cfg.w-2*margin)/(maxValue - minValue)):((cfg.h-2*margin)/(maxValue - minValue));
     if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.w/2}else{margin=cfg.h/2}}
     svg.append("line")
