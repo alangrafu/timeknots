@@ -71,10 +71,12 @@ var TimeKnots = {
         return Math.floor(cfg.w/2)
     }).on("mouseover", function(d){
       var format = d3.time.format(cfg.dateFormat);
+      var datetime = format(new Date(d.date)); 
+      var dateValue = (datetime != "")?(d.name +" <small>("+datetime+")</small>"):d.name;
       d3.select(this)
       .style("fill", function(d){if(d.color != undefined){return d.color} return cfg.color}).transition()
       .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(d.radius*1.5)} return Math.floor(cfg.radius*1.5)});
-      tip.html( d.name +" <small>("+format(new Date(d.date))+")</small>") 
+      tip.html(dateValue ) 
       .transition()
       .duration(100)
       .style("opacity", .9);
