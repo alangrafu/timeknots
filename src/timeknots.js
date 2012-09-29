@@ -53,10 +53,10 @@ var TimeKnots = {
     .data(events).enter()
     .append("circle")
     .attr("class", "timeline-event")
-    .attr("r", cfg.radius)
-    .style("stroke", cfg.color)
-    .style("stroke-width", cfg.lineWidth)
-    .style("fill", cfg.background)
+    .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius})
+    .style("stroke", function(d){if(d.color != undefined){return d.color} return cfg.color})
+    .style("stroke-width", function(d){if(d.lineWidth != undefined){return d.lineWidth} return cfg.lineWidth})
+    .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background})
     .attr("cy", function(d){
         if(cfg.horizontalLayout){
           return Math.floor(cfg.h/2)
@@ -72,8 +72,8 @@ var TimeKnots = {
     }).on("mouseover", function(d){
       var format = d3.time.format(cfg.dateFormat);
       d3.select(this)
-      .style("fill", cfg.color).transition()
-      .duration(100).attr("r", Math.floor(cfg.radius*1.5));
+      .style("fill", function(d){if(d.color != undefined){return d.color} return cfg.color}).transition()
+      .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(d.radius*1.5)} return Math.floor(cfg.radius*1.5)});
       tip.html( d.name +" <small>("+format(new Date(d.date))+")</small>") 
       .transition()
       .duration(100)
@@ -81,8 +81,8 @@ var TimeKnots = {
     })
     .on("mouseout", function(){
         d3.select(this)
-        .style("fill", cfg.background).transition()
-        .duration(100).attr("r", cfg.radius);
+        .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background}).transition()
+        .duration(100).attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius});
         tip.transition()
         .duration(100)
     .style("opacity", 0)});
