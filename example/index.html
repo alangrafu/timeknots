@@ -2,7 +2,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <script src="http://d3js.org/d3.v2.js" type="application/javascript"></script>
-<script src="../src/timeknots-min.js" type="application/javascript"></script>
+<script src="../src/timeknots.js" type="application/javascript"></script>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 <style>
 body {
   font: 18px "Helvetica Neue";
@@ -13,16 +15,25 @@ body {
 </style>
 </head>
 <body>
-<div>
-<div style="float:left;width:400px">
-<h1>My schedule</h1>
-<div id="timeline2" style="width:200px;height: 500px;"></div>
+<div class="fluid-row">
+<div class="well span11 pagination-centered">
+<h1>Demos using timeknots</h1>
+<h5><a href='https://github.com/alangrafu/timeknots'>https://github.com/alangrafu/timeknots</a></h5>
 </div>
-<div style="float:left;">
-<h1>Stanley Kubrick's movies</h1>
-<div id="timeline1" style="width:500px;height: 200px;"></div>
-<h1>Months</h1>
-<div id="timeline3" style="width:500px;height: 200px;"></div>
+</div>
+<div class="fluid-row">
+<div class="span3">
+ <h2>My schedule</h2>
+ <h5>Imaginary schedule in a vertical layout</h5>
+ <div id="timeline2" style="width:200px;height: 400px;"></div>
+</div>
+<div class="span6">
+ <h2>Stanley Kubrick's movies</h2>
+ <h5>Part of Kubrick's Filmography form Wikipedia</h5>
+ <div id="timeline1" style="width:500px;"></div>
+ <h2>This week's agenda</h2>
+ <h5>Shows random meetings/free days</h5>
+ <div id="timeline3" style="width:500px;height: 200px;"></div>
 </div>
 </div>
 <script type="text/javascript">
@@ -36,7 +47,7 @@ var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26"},
   {name:"Killer's Kiss", date:	"1955-09-28"}
 ];
 
-TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#966"});
+TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", h:150});
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
@@ -49,22 +60,27 @@ var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Watch a movie", date:	"2012-09-28T20:16:00"},
   {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
 ];
-TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", h: 500, w:200});
+TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", h: 450, w:200});
 
-var months = [{name:"January", date: "2012-01-15"},
-  {name:"February", 	date:"2012-02-15"},
-  {name:"March", 	date:"2012-03-15"},
-  {name:"April", 	date:"2012-04-15"},
-  {name:"May", 	date:"2012-05-15"},
-  {name:"June", 	date:"2012-06-15"},
-  {name:"July", 	date:"2012-07-15"},
-  {name:"August", 	date:"2012-08-15"},
-  {name:"September", 	date:"2012-09-15"},
-  {name:"October", 	date:"2012-10-15"},
-  {name:"Novermber", 	date:"2012-11-15"},
-  {name:"December", 	date:"2012-12-15"},
-];
-TimeKnots.draw("#timeline3", months, {dateFormat: "%B", radius: 25});
+
+
+var agenda = new Array();
+var day = 86400000;
+var today = new Date();
+for(var i=-3; i<4; i++){
+  var thisdate = new Date(today.getTime() + i*day).toUTCString();
+  var thiscolor = "#44a";
+  var thisname = "Free day";
+  if(Math.random()>0.5){
+   thiscolor = "#b00";
+   thisname = "Meeting";
+  }
+  var thiswidth = (i<0)?1:5;
+  agenda.push({date: thisdate, name: thisname, color:thiscolor, lineWidth: thiswidth })
+}
+TimeKnots.draw("#timeline3", agenda, {dateFormat: "%A", radius: 20});
+
+
 </script>
 
 </body>
