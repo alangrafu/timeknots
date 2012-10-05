@@ -7,16 +7,16 @@ Minimalist timeline in javascript
 General Options
 ===============
 
-* `w`: width of the visualization (default: 600px)
-* `h`: height of the visualization (default: 200px)
-* `radius`: radius of the knots (default: 10px)
-* `lineWidth`: width of the lines used to draw timeknots (default: 4px)
-* `color`: color used for the visualization (default: "#999")
-* `background`: Background color of the visualization (default: "#FFF")
-* `dateFormat`: Format of the dates displayed (default: "%Y/%m/%d %H:%M:%S")
-* `horizontalLayout`: orientation in which the timeknots will be displayed horizontal or vertical (default: true),
-* `showLabels`: Include labels showing the first and last dates (default: false)
-* `labelFormat`: Format used to display the dates in the labels (default: "%Y/%m/%d %H:%M:%S")
+* `w`: width of the visualization (default: `600` pixels)
+* `h`: height of the visualization (default: `200` pixels)
+* `radius`: radius of the knots (default: `10` pixels)
+* `lineWidth`: width of the lines used to draw timeknots (default: `4` pixels)
+* `color`: color used for the visualization (default: `999`)
+* `background`: Background color of the visualization (default: `FFF`)
+* `dateFormat`: Format of the dates displayed (default: `%Y/%m/%d %H:%M:%S`)
+* `horizontalLayout`: orientation in which the timeknots will be displayed horizontal or vertical (default: `true`),
+* `showLabels`: Include labels showing the first and last dates (default: `false`)
+* `labelFormat`: Format used to display the dates in the labels (default: `%Y/%m/%d %H:%M:%S`)
 
 
 Knot options
