@@ -7,8 +7,8 @@ Minimalist timeline in javascript
 General Options
 ===============
 
-* `w`: width of the visualization (default: `600` pixels)
-* `h`: height of the visualization (default: `200` pixels)
+* `width`: width of the visualization (default: `600` pixels)
+* `height`: height of the visualization (default: `200` pixels)
 * `radius`: radius of the knots (default: `10` pixels)
 * `lineWidth`: width of the lines used to draw timeknots (default: `4` pixels)
 * `color`: color used for the visualization (default: `999`)
