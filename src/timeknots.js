@@ -1,8 +1,8 @@
 var TimeKnots = {
   draw: function(id, events, options){
     var cfg = {
-      w: 600,
-      h: 200,
+      width: 600,
+      height: 200,
       radius: 10,
       lineWidth: 4,
       color: "#999",
@@ -31,22 +31,22 @@ var TimeKnots = {
     .style("padding", "5px 10px 5px 10px")
     .style("-moz-border-radius", "8px 8px")
     .style("border-radius", "8px 8px");
-    var svg = d3.select(id).append('svg').attr("width", cfg.w).attr("height", cfg.h);
+    var svg = d3.select(id).append('svg').attr("width", cfg.width).attr("height", cfg.height);
     //Calculate times in terms of timestamps
     
     var timestamps = events.map(function(d){return  Date.parse(d.date);});//new Date(d.date).getTime()});
     var maxValue = d3.max(timestamps);
     var minValue = d3.min(timestamps);
     var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)*1.5+cfg.lineWidth;
-    var step = (cfg.horizontalLayout)?((cfg.w-2*margin)/(maxValue - minValue)):((cfg.h-2*margin)/(maxValue - minValue));
+    var step = (cfg.horizontalLayout)?((cfg.width-2*margin)/(maxValue - minValue)):((cfg.height-2*margin)/(maxValue - minValue));
 
-    if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.w/2}else{margin=cfg.h/2}}
+    if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.width/2}else{margin=cfg.height/2}}
     svg.append("line")
     .attr("class", "timeline-line")
-    .attr("x1", function(d){if(cfg.horizontalLayout){return (margin)} return Math.floor(cfg.w/2)})
-    .attr("x2", function(d){if(cfg.horizontalLayout){return (cfg.w - margin)} return Math.floor(cfg.w/2)})
-    .attr("y1", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.h/2)}return margin})
-    .attr("y2", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.h/2)}return cfg.h-margin})
+    .attr("x1", function(d){if(cfg.horizontalLayout){return (margin)} return Math.floor(cfg.width/2)})
+    .attr("x2", function(d){if(cfg.horizontalLayout){return (cfg.width - margin)} return Math.floor(cfg.width/2)})
+    .attr("y1", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2)}return margin})
+    .attr("y2", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2)}return cfg.height-margin})
     .style("stroke", cfg.color)
     .style("stroke-width", cfg.lineWidth);
     
@@ -60,7 +60,7 @@ var TimeKnots = {
     .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background})
     .attr("cy", function(d){
         if(cfg.horizontalLayout){
-          return Math.floor(cfg.h/2)
+          return Math.floor(cfg.height/2)
         }
         return Math.floor(step*(new Date(d.date).getTime() - minValue) + margin)
     })
@@ -69,7 +69,7 @@ var TimeKnots = {
           var x=  Math.floor(step*(new Date(d.date).getTime() - minValue) + margin);
           return x;
         }
-        return Math.floor(cfg.w/2)
+        return Math.floor(cfg.width/2)
     }).on("mouseover", function(d){
       var format = d3.time.format(cfg.dateFormat);
       var datetime = format(new Date(d.date)); 
@@ -104,17 +104,19 @@ var TimeKnots = {
       svg.append("text")
          .text(startString).style("font-size", "70%")
          .attr("x", function(d){if(cfg.horizontalLayout){return d3.max([0, (margin-this.getBBox().width/2)])} return Math.floor(this.getBBox().width/2)})
-         .attr("y", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.h/2+(margin+this.getBBox().height))}return margin+this.getBBox().height/2});
+         .attr("y", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2+(margin+this.getBBox().height))}return margin+this.getBBox().height/2});
          
       svg.append("text")
          .text(endString).style("font-size", "70%")
-         .attr("x", function(d){if(cfg.horizontalLayout){return  cfg.w -  d3.max([this.getBBox().width, (margin+this.getBBox().width/2)])} return Math.floor(this.getBBox().width/2)})
-         .attr("y", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.h/2+(margin+this.getBBox().height))}return cfg.h-margin+this.getBBox().height/2})
+         .attr("x", function(d){if(cfg.horizontalLayout){return  cfg.width -  d3.max([this.getBBox().width, (margin+this.getBBox().width/2)])} return Math.floor(this.getBBox().width/2)})
+         .attr("y", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2+(margin+this.getBBox().height))}return cfg.height-margin+this.getBBox().height/2})
     }
     
     
     svg.on("mousemove", function(){
-    return tip.style("top", (d3.event.pageY-100)+"px").style("left",(d3.event.pageX+20)+"px");});
+        tipPixels = parseInt(tip.style("height").replace("px", ""));
+    return tip.style("top", (d3.event.pageY-tipPixels-margin)+"px").style("left",(d3.event.pageX+20)+"px");})
+    .on("mouseout", function(){return tip.style("opacity", 0).style("top","0px").style("left","0px");});
   }
 }
 

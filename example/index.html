@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <script src="../src/d3.v2.min.js" type="application/javascript"></script>
-<script src="../src/timeknots.js" type="application/javascript"></script>
+<script src="../src/timeknots-min.js" type="application/javascript"></script>
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 <style>
@@ -47,7 +47,7 @@ var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://u
   {name:"Killer's Kiss", date:	"1955-09-28", img: "http://upload.wikimedia.org/wikipedia/en/thumb/a/a6/KillersKissPoster.jpg/220px-KillersKissPoster.jpg"}
 ];
 
-TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", w:500, showLabels: true, labelFormat: "%Y"});
+TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y"});
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
@@ -60,7 +60,7 @@ var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Watch a movie", date:	"2012-09-28T20:16:00"},
   {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
 ];
-TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", h: 450, w:200, showLabels: true, labelFormat:"%H:%M"});
+TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", height: 450, width:200, showLabels: true, labelFormat:"%H:%M"});
 
 
 
