@@ -10,7 +10,8 @@ var TimeKnots = {
       dateFormat: "%Y/%m/%d %H:%M:%S",
       horizontalLayout: true,
       showLabels: false,
-      labelFormat: "%Y/%m/%d %H:%M:%S"
+      labelFormat: "%Y/%m/%d %H:%M:%S",
+      addNow: false
     };
     
     
@@ -20,6 +21,10 @@ var TimeKnots = {
         cfg[i] = options[i];
       }
     }
+    if(cfg.addNow != false){
+      events.push({date: new Date(), name: cfg.addNow});
+    }
+    console.log(events);
     var tip = d3.select(id)
     .append('div')
     .style("opacity", 0)
