@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <script src="../src/d3.v2.min.js" type="application/javascript"></script>
-<script src="../src/timeknots-min.js" type="application/javascript"></script>
+<script src="../src/timeknots.js" type="application/javascript"></script>
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 <style>
@@ -67,6 +67,7 @@ TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669"
 var agenda = new Array();
 var day = 86400000;
 var today = new Date();
+var series = ["Serie1", "Serie 2", "Serie 3"];
 for(var i=-3; i<4; i++){
   var thisdate = new Date(today.getTime() + i*day).toUTCString();
   var thiscolor = "#44a";
@@ -75,10 +76,12 @@ for(var i=-3; i<4; i++){
    thiscolor = "#b00";
    thisname = "Meeting";
   }
+  serieId = parseInt(Math.random()*100) %3;
+  thisseries = series[serieId];
   var thiswidth = (i<0)?1:5;
-  agenda.push({date: thisdate, name: thisname, color:thiscolor, lineWidth: thiswidth })
+  agenda.push({date: thisdate, name: thisname,  series: thisseries })
 }
-TimeKnots.draw("#timeline3", agenda, {dateFormat: "%A", radius: 20});
+TimeKnots.draw("#timeline3", agenda, {dateFormat: "%A", color: "green", radius: 20});
 
 
 </script>

@@ -11,7 +11,8 @@ var TimeKnots = {
       horizontalLayout: true,
       showLabels: false,
       labelFormat: "%Y/%m/%d %H:%M:%S",
-      addNow: false
+      addNow: false,
+      seriesColor: d3.scale.category20()
     };
     
     
@@ -22,9 +23,8 @@ var TimeKnots = {
       }
     }
     if(cfg.addNow != false){
-      events.push({date: new Date(), name: cfg.addNow});
+      events.push({date: new Date(), name: cfg.addNowLabel || "Today"});
     }
-    console.log(events);
     var tip = d3.select(id)
     .append('div')
     .style("opacity", 0)
@@ -44,7 +44,7 @@ var TimeKnots = {
     var minValue = d3.min(timestamps);
     var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)*1.5+cfg.lineWidth;
     var step = (cfg.horizontalLayout)?((cfg.width-2*margin)/(maxValue - minValue)):((cfg.height-2*margin)/(maxValue - minValue));
-
+    var series = [];
     if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.width/2}else{margin=cfg.height/2}}
     svg.append("line")
     .attr("class", "timeline-line")
@@ -60,7 +60,19 @@ var TimeKnots = {
     .append("circle")
     .attr("class", "timeline-event")
     .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius})
-    .style("stroke", function(d){if(d.color != undefined){return d.color} return cfg.color})
+    .style("stroke", function(d){
+                    if(d.color != undefined){
+                      return d.color
+                    }
+                    if(d.series != undefined){
+                      if(series.indexOf(d.series) < 0){
+                        series.push(d.series);
+                      }
+                      console.log(d.series, series, series.indexOf(d.series));
+                      return cfg.seriesColor(series.indexOf(d.series));
+                    }
+                    return cfg.color}
+    )
     .style("stroke-width", function(d){if(d.lineWidth != undefined){return d.lineWidth} return cfg.lineWidth})
     .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background})
     .attr("cy", function(d){
