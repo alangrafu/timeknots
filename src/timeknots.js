@@ -46,13 +46,68 @@ var TimeKnots = {
     var step = (cfg.horizontalLayout)?((cfg.width-2*margin)/(maxValue - minValue)):((cfg.height-2*margin)/(maxValue - minValue));
     var series = [];
     if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.width/2}else{margin=cfg.height/2}}
-    svg.append("line")
+    
+    linePrevious = {
+      x1 : null,
+      x2 : null,
+      y1 : null,
+      y2 : null
+    }
+
+    svg.selectAll("line")
+    .data(events).enter().append("line")
     .attr("class", "timeline-line")
-    .attr("x1", function(d){if(cfg.horizontalLayout){return (margin)} return Math.floor(cfg.width/2)})
-    .attr("x2", function(d){if(cfg.horizontalLayout){return (cfg.width - margin)} return Math.floor(cfg.width/2)})
-    .attr("y1", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2)}return margin})
-    .attr("y2", function(d){if(cfg.horizontalLayout){return Math.floor(cfg.height/2)}return cfg.height-margin})
-    .style("stroke", cfg.color)
+      .attr("x1", function(d){
+                      var ret;
+                      if(cfg.horizontalLayout){
+                        ret = Math.floor(step*(new Date(d.date).getTime() - minValue) + margin)
+                      }
+                      else{
+                        ret = Math.floor(cfg.width/2)
+                      }
+                      linePrevious.x1 = ret
+                      return ret
+                      })
+    .attr("x2", function(d){
+                      if (linePrevious.x1 != null){
+                          return linePrevious.x1
+                      }
+                      if(cfg.horizontalLayout){
+                        ret = Math.floor(step*(new Date(d.date).getTime() - minValue ))
+                      }
+                      return Math.floor(cfg.width/2)
+                      })
+    .attr("y1", function(d){
+                      var ret;
+                      if(cfg.horizontalLayout){
+                        ret = Math.floor(cfg.height/2)
+                      }
+                      else{
+                        ret = Math.floor(step*(new Date(d.date).getTime() - minValue)) + margin
+                      }
+                      linePrevious.y1 = ret
+                      return ret
+                      })
+    .attr("y2", function(d){
+                      if (linePrevious.y1 != null){
+                        return linePrevious.y1
+                      }
+                      if(cfg.horizontalLayout){
+                        return Math.floor(cfg.height/2)
+                      }
+                      return Math.floor(step*(new Date(d.date).getTime() - minValue))
+                      })
+    .style("stroke", function(d){
+                      if(d.color != undefined){
+                        return d.color
+                      }
+                      if(d.series != undefined){
+                        if(series.indexOf(d.series) < 0){
+                          series.push(d.series);
+                        }
+                        return cfg.seriesColor(series.indexOf(d.series));
+                      }
+                      return cfg.color})
     .style("stroke-width", cfg.lineWidth);
     
     svg.selectAll("circle")
