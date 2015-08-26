@@ -36,11 +36,7 @@ var TimeKnots = {
     .style("padding", "5px 10px 5px 10px")
     .style("-moz-border-radius", "8px 8px")
     .style("border-radius", "8px 8px");
-    var svg = d3.select(id).append('svg')
-                           //.attr("width", cfg.width)
-                           //.attr("height", cfg.height)
-                           .attr("viewBox", "0 0 " + cfg.width + " " + cfg.height )
-                           .attr("preserveAspectRatio", "xMidYMid meet");
+    var svg = d3.select(id).append('svg').attr("width", cfg.width).attr("height", cfg.height);
     //Calculate times in terms of timestamps
     
     var timestamps = events.map(function(d){return  Date.parse(d.date);});//new Date(d.date).getTime()});
