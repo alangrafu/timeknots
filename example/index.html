@@ -23,20 +23,32 @@ body {
 </div>
 <div class="fluid-row">
 <div class="span3">
- <h2>My schedule</h2>
- <h5>Imaginary schedule in a vertical layout</h5>
- <div id="timeline2" style="width:200px;height: 400px;"></div>
-</div>
-<div class="span6">
  <h2>Stanley Kubrick's movies</h2>
  <h5>Part of Kubrick's Filmography form Wikipedia</h5>
  <div id="timeline1" style="width:500px;"></div>
+ <h2>Numeric, non date data</h2>
+ <div id="timelineNonDate" style="width:200px;"></div>
+</div>
+<div class="span6">
+ <h2>My schedule</h2>
+ <h5>Imaginary schedule in a vertical layout</h5>
+ <div id="timeline2" style="width:200px;height: 450px;"></div>
  <h2>This week's agenda</h2>
  <h5>Shows random meetings/free days</h5>
  <div id="timeline3" style="width:500px;height: 200px;"></div>
 </div>
 </div>
 <script type="text/javascript">
+
+var nonDatedata = [
+ {"value": 224, "name": "Player 1" },
+ {"value": 249, "name": "Player 2" },
+ {"value": 297, "name": "Player 3" },
+ {"value": 388, "name": "Player 4" },
+ {"value": 397, "name": "Player 5" },
+ {"value": 418, "name": "Player 6" }
+];
+TimeKnots.draw("#timelineNonDate", nonDatedata, {dateDimension:false, color: "teal", width:500, showLabels: true, labelFormat: "%Y"});
 
 var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg"},
   {name:"The Seafarers", 	date:"1953-10-15", img: "http://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Seafarers_title.jpg/225px-Seafarers_title.jpg"},
