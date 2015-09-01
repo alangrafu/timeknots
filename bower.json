@@ -1,0 +1,25 @@
+{
+  "name": "timeknots",
+  "version": "1.0.10",
+  "homepage": "https://github.com/alangrafu/timeknots",
+  "authors": [
+    "Alvaro Graves <alvaro@graves.cl>"
+  ],
+  "description": "Minimalistic timelines based on D3",
+  "main": "src/timeknots.js",
+  "keywords": [
+    "timeknots",
+    "visualization",
+    "d3",
+    "timelines",
+    "timeline"
+  ],
+  "license": "Apache2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
