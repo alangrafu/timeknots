@@ -29,6 +29,7 @@ It is possible to include or override certain options for particular knots. Thes
 * `color`: Draw this knot using this particular color
 * `lineWidth`: Draw thiw knot using this particular line width
 * `background`: Draw thiw knot using this particular background
+* `id`: Add an ID attribute to the knot with this value
 
 
 Examples
