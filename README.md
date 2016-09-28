@@ -5,7 +5,7 @@ Minimalist timeline in javascript
 
 
 General Options
-===============
+---------------
 
 * `width`: width of the visualization (default: `600` pixels)
 * `height`: height of the visualization (default: `200` pixels)
@@ -22,7 +22,7 @@ General Options
 
 
 Knot options
-============
+------------
 
 It is possible to include or override certain options for particular knots. These options are
 
@@ -33,7 +33,9 @@ It is possible to include or override certain options for particular knots. Thes
 * `background`: Draw thiw knot using this particular background
 
 
+
+
 Examples
-========
+--------
 
 A set of example can be found at [http://graves.cl/timeknots/example/index.html](http://graves.cl/timeknots/example/index.html) 
