@@ -17,6 +17,8 @@ General Options
 * `horizontalLayout`: orientation in which the timeknots will be displayed horizontal or vertical (default: `true`),
 * `showLabels`: Include labels showing the first and last dates (default: `false`)
 * `labelFormat`: Format used to display the dates in the labels (default: `%Y/%m/%d %H:%M:%S`)
+* `onMouseOver`: callback when the mouse comes over a knot
+* `onMouseOut`: callback when the mouse goes out of a knot
 
 
 Knot options
