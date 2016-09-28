@@ -59,7 +59,11 @@ var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://u
   {name:"Killer's Kiss", date:	"1955-09-28", img: "http://upload.wikimedia.org/wikipedia/en/thumb/a/a6/KillersKissPoster.jpg/220px-KillersKissPoster.jpg"}
 ];
 
-TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y"});
+TimeKnots.draw("#timeline1", kurbickFilms, {
+  dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y", 
+  onMouseOver: function(knot){console.log('onMouseOver')},
+  onMouseOut: function(knot){console.log('onMouseOut')}
+});
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
