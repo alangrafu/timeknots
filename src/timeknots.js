@@ -177,7 +177,7 @@ var TimeKnots = {
       .style("opacity", .9);
 
       // if a callback onMouseOver was specified, we call him
-      if(cfg.onMouseOver != undefined){ cfg.onMouseOver(d3); }
+      if(cfg.onMouseOver != undefined){ cfg.onMouseOver(d3.select(this), tip); }
 
     })
     .on("mouseout", function(){
@@ -188,7 +188,7 @@ var TimeKnots = {
         .duration(100)
     .style("opacity", 0);
 
-    if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3); }
+    if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3.select(this), tip); }
 
     });
 

@@ -20,6 +20,21 @@ General Options
 * `onMouseOver`: callback when the mouse comes over a knot
 * `onMouseOut`: callback when the mouse goes out of a knot
 
+### Callbacks
+
+
+Callback can be specified when you use `TimeKnots.draw()`. The callback can take two parameter:
+
+* `knot_circle` as [`d3.selection()`](https://github.com/d3/d3-selection/blob/master/README.md#selection) object
+* `knot_tip` as [`d3.selection()`](https://github.com/d3/d3-selection/blob/master/README.md#selection) object
+
+```javascript
+TimeKnots.draw("#timeline1", kurbickFilms, {
+  dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y", 
+  onMouseOver: function(circle, tip){console.log("you mouse overed :"+tip.text())},
+  onMouseOut: function(circle, tip){console.log("you mouse out :"+tip.text())}
+});
+```
 
 Knot options
 ------------

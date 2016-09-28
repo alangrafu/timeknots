@@ -61,8 +61,8 @@ var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://u
 
 TimeKnots.draw("#timeline1", kurbickFilms, {
   dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y", 
-  onMouseOver: function(knot){console.log('onMouseOver')},
-  onMouseOut: function(knot){console.log('onMouseOut')}
+  onMouseOver: function(circle, tip){console.log("you mouse overed :"+tip.text())},
+  onMouseOut: function(circle, tip){console.log("you mouse out :"+tip.text())}
 });
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
