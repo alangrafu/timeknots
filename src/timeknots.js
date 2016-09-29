@@ -59,15 +59,18 @@ var TimeKnots = {
       var ratio = hovered ? 1.5 : 1 ;
       var color = hovered ? cfg.color : cfg.background ;
       //apply them
-      return d3.select(circle)
-      .style("fill", function(d){if(d.color != undefined){return d.color} return color}).transition()
+      return circle.style("fill", function(d){if(d.color != undefined){return d.color} return color}).transition()
       .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(cfg.radius*ratio)} return Math.floor(cfg.radius*ratio)});
     }
-
+    // function to hide/unhide tip
     function toggle_tip(tip , visible){
       var opacity = visible ? .9 : 0 ; 
-      tip.transition().duration(100).style("opacity", opacity);
-      return tip;
+      return tip.transition().duration(100).style("opacity", opacity);
+    }
+
+    function reset_circles(){
+      var circles = d3.selectAll(id.concat(" circle.timeline-event")) ;
+      toggle_circle(circles, false);
     }
 
 
@@ -197,15 +200,17 @@ var TimeKnots = {
         var datetime = d.value;
         var dateValue = d.name +" <small>("+d.value+")</small>";
       }
-      toggle_circle(this, true);
+      
 
       tip.html(dateValue);
       if(d.img != undefined){
         tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px");
       }
       // if top position is not sdefined, we set float-left to the tip
-      if(!tip_position_top ){tip.append("div").style("float", "left"); }
+      if(tip_position_top ){reset_circles();
 
+      }else{tip.append("div").style("float", "left"); }
+      toggle_circle(d3.select(this), true);
       toggle_tip(tip, true);
 
       // if a callback onMouseOver was specified, we call him
@@ -213,9 +218,9 @@ var TimeKnots = {
 
     })
     .on("mouseout", function(){
-      toggle_circle(this, false);
+      
       // if the position is set to top, we don't hide the tip
-      if(tip_position_top != true){toggle_tip(tip, false);}
+      if(tip_position_top != true){toggle_tip(tip, false);toggle_circle(d3.select(this), false);}
       //call the callback
       if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3.select(this), tip); }
 
