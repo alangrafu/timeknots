@@ -18,6 +18,8 @@ var TimeKnots = {
     };
 
 
+
+
     //default configuration overrid
     if(options != undefined){
       for(var i in options){
@@ -50,6 +52,25 @@ var TimeKnots = {
     .style("border-radius", "8px 8px");
 
     var svg = d3.select(id).append('svg').attr("width", cfg.width).attr("height", cfg.height);
+
+
+    // function to set size and color of the circle if he hovered
+    function toggle_circle (circle , hovered){
+      var ratio = hovered ? 1.5 : 1 ;
+      var color = hovered ? cfg.color : cfg.background ;
+      //apply them
+      return d3.select(circle)
+      .style("fill", function(d){if(d.color != undefined){return d.color} return color}).transition()
+      .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(cfg.radius*ratio)} return Math.floor(cfg.radius*ratio)});
+    }
+
+    function toggle_tip(tip , visible){
+      var opacity = visible ? .9 : 0 ; 
+      tip.transition().duration(100).style("opacity", opacity);
+      return tip;
+    }
+
+
     //Calculate times in terms of timestamps
     if(!cfg.dateDimension){
       var timestamps = events.map(function(d){return  d.value});//new Date(d.date).getTime()});
@@ -176,9 +197,8 @@ var TimeKnots = {
         var datetime = d.value;
         var dateValue = d.name +" <small>("+d.value+")</small>";
       }
-      d3.select(this)
-      .style("fill", function(d){if(d.color != undefined){return d.color} return cfg.color}).transition()
-      .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(d.radius*1.5)} return Math.floor(cfg.radius*1.5)});
+      toggle_circle(this, true);
+
       tip.html(dateValue);
       if(d.img != undefined){
         tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px");
@@ -186,18 +206,16 @@ var TimeKnots = {
       // if top position is not sdefined, we set float-left to the tip
       if(!tip_position_top ){tip.append("div").style("float", "left"); }
 
-      tip.transition().duration(100).style("opacity", .9);
+      toggle_tip(tip, true);
 
       // if a callback onMouseOver was specified, we call him
       if(cfg.onMouseOver != undefined){ cfg.onMouseOver(d3.select(this), tip); }
 
     })
     .on("mouseout", function(){
-      d3.select(this)
-        .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background}).transition()
-        .duration(100).attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius});
+      toggle_circle(this, false);
       // if the position is set to top, we don't hide the tip
-      if(tip_position_top != true){tip.transition().duration(100).style("opacity", 0);}
+      if(tip_position_top != true){toggle_tip(tip, false);}
       //call the callback
       if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3.select(this), tip); }
 
@@ -232,7 +250,7 @@ var TimeKnots = {
     .on("mouseout", function(){
       // if the position is set to top, we don't hide the tip
       if(tip_position_top == true){return tip;}
-      else{return tip.style("opacity", 0).style("top","0px").style("left","0px"); }
+      else{return toggle_tip(tip, false).style("top","0px").style("left","0px"); }
     });
   }
 }
