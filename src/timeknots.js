@@ -183,10 +183,8 @@ var TimeKnots = {
       if(d.img != undefined){
         tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px");
       }
-      /*<-------------------------------------------MODIFICATION HERE*/
-      if(cfg.tipPosition == 'float'){
-        tip.append("div").style("float", "left");
-      }
+      // if top position is not sdefined, we set float-left to the tip
+      if(!tip_position_top ){tip.append("div").style("float", "left"); }
 
       tip.transition().duration(100).style("opacity", .9);
 
@@ -198,9 +196,10 @@ var TimeKnots = {
       d3.select(this)
         .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background}).transition()
         .duration(100).attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius});
-      tip.transition().duration(100).style("opacity", 0);
-
-    if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3.select(this), tip); }
+      // if the position is set to top, we don't hide the tip
+      if(tip_position_top != true){tip.transition().duration(100).style("opacity", 0);}
+      //call the callback
+      if(cfg.onMouseOut != undefined){ cfg.onMouseOut(d3.select(this), tip); }
 
     });
 
@@ -228,9 +227,13 @@ var TimeKnots = {
 
 
     svg.on("mousemove", function(){
-        tipPixels = parseInt(tip.style("height").replace("px", ""));
-    return tip.style("top", (d3.event.pageY-tipPixels-margin)+"px").style("left",(d3.event.pageX+20)+"px");})
-    .on("mouseout", function(){return tip.style("opacity", 0).style("top","0px").style("left","0px");});
+      tipPixels = parseInt(tip.style("height").replace("px", ""));
+      return tip.style("top", (d3.event.pageY-tipPixels-margin)+"px").style("left",(d3.event.pageX+20)+"px");})
+    .on("mouseout", function(){
+      // if the position is set to top, we don't hide the tip
+      if(tip_position_top == true){return tip;}
+      else{return tip.style("opacity", 0).style("top","0px").style("left","0px"); }
+    });
   }
 }
 
