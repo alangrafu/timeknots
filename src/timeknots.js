@@ -5,8 +5,10 @@ var TimeKnots = {
       height: 200,
       radius: 10,
       lineWidth: 4,
-      color: "#999",
-      background: "#FFF",
+      colorTimeline: "#999",
+      colorTip: "white",
+      backgroundCircle: "#FFF",
+      backgroundTip: "rgba(0,0,0,0.5)",
       dateFormat: "%Y/%m/%d %H:%M:%S",
       horizontalLayout: true,
       showLabels: false,
@@ -45,8 +47,8 @@ var TimeKnots = {
     tip.style("opacity", 0)
     .style("font-family", "Helvetica Neue")
     .style("font-weight", "300")
-    .style("background","rgba(0,0,0,0.5)")
-    .style("color", "white")
+    .style("background", cfg.backgroundTip)
+    .style("color", cfg.colorTip)
     .style("padding", "5px 10px 5px 10px")
     .style("-moz-border-radius", "8px 8px")
     .style("border-radius", "8px 8px");
@@ -57,7 +59,7 @@ var TimeKnots = {
     // function to set size and color of the circle if he hovered
     function toggle_circle (circle , hovered){
       var ratio = hovered ? 1.5 : 1 ;
-      var color = hovered ? cfg.color : cfg.background ;
+      var color = hovered ? cfg.colorTimeline : cfg.backgroundCircle ;
       //apply them
       return circle.style("fill", function(d){if(d.color != undefined){return d.color} return color}).transition()
       .duration(100).attr("r",  function(d){if(d.radius != undefined){return Math.floor(cfg.radius*ratio)} return Math.floor(cfg.radius*ratio)});
@@ -153,7 +155,7 @@ var TimeKnots = {
                         }
                         return cfg.seriesColor(series.indexOf(d.series));
                       }
-                      return cfg.color})
+                      return cfg.colorTimeline})
     .style("stroke-width", cfg.lineWidth);
 
     svg.selectAll("circle")
@@ -172,10 +174,10 @@ var TimeKnots = {
                       console.log(d.series, series, series.indexOf(d.series));
                       return cfg.seriesColor(series.indexOf(d.series));
                     }
-                    return cfg.color}
+                    return cfg.colorTimeline}
     )
     .style("stroke-width", function(d){if(d.lineWidth != undefined){return d.lineWidth} return cfg.lineWidth})
-    .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background})
+    .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.backgroundCircle})
     .attr("cy", function(d){
         if(cfg.horizontalLayout){
           return Math.floor(cfg.height/2)
