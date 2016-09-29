@@ -7,22 +7,33 @@ Minimalist timeline in javascript
 General Options
 ---------------
 
+### Size
+
 * `width`: width of the visualization (default: `600` pixels)
 * `height`: height of the visualization (default: `200` pixels)
 * `radius`: radius of the knots (default: `10` pixels)
 * `lineWidth`: width of the lines used to draw timeknots (default: `4` pixels)
-* `color`: color used for the visualization (default: `999`)
-* `background`: Background color of the visualization (default: `FFF`)
+
+### Colors
+
+* `colorTimeline`: color used for the Timeline (default: `999`)
+* `colorTip`: color used for text visualization (default: `rgba(0,0,0,.5)`)
+* `backgroundCircle`: Background color of the circle (default: `FFF`)
+* `backgroundTip`: Background color of the tip (default: `{0,0,0,.5}`)
+
+### Appareance
+
 * `tipPosition`: position of the tip (default: `float`, can also be `top`)
 * `dateFormat`: Format of the dates displayed (default: `%Y/%m/%d %H:%M:%S`)
 * `horizontalLayout`: orientation in which the timeknots will be displayed horizontal or vertical (default: `true`),
 * `showLabels`: Include labels showing the first and last dates (default: `false`)
 * `labelFormat`: Format used to display the dates in the labels (default: `%Y/%m/%d %H:%M:%S`)
-* `onMouseOver`: callback when the mouse comes over a knot
-* `onMouseOut`: callback when the mouse goes out of a knot
+
 
 ### Callbacks
 
+* `onMouseOver`: callback when the mouse comes over a knot
+* `onMouseOut`: callback when the mouse goes out of a knot
 
 Callback can be specified when you use `TimeKnots.draw()`. The callback can take two parameter:
 
