@@ -13,6 +13,7 @@ General Options
 * `lineWidth`: width of the lines used to draw timeknots (default: `4` pixels)
 * `color`: color used for the visualization (default: `999`)
 * `background`: Background color of the visualization (default: `FFF`)
+* `tipPosition`: position of the tip (default: `float`, can also be `top`)
 * `dateFormat`: Format of the dates displayed (default: `%Y/%m/%d %H:%M:%S`)
 * `horizontalLayout`: orientation in which the timeknots will be displayed horizontal or vertical (default: `true`),
 * `showLabels`: Include labels showing the first and last dates (default: `false`)

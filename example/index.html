@@ -26,6 +26,8 @@ body {
  <h2>Stanley Kubrick's movies</h2>
  <h5>Part of Kubrick's Filmography form Wikipedia</h5>
  <div id="timeline1" style="width:500px;"></div>
+ <h3>Different tip sizing</h3>
+ <div id="timeline1_1" style="width:500px;"></div>
  <h2>Numeric, non date data</h2>
  <div id="timelineNonDate" style="width:200px;"></div>
 </div>
@@ -65,6 +67,10 @@ TimeKnots.draw("#timeline1", kurbickFilms, {
   onMouseOut: function(circle, tip){console.log("you mouse out :"+tip.text())}
 });
 
+TimeKnots.draw("#timeline1_1", kurbickFilms, {
+  dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y", tipPosition: 'top'
+});
+
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
   {name:"Leave kids at school", 	date:"2012-09-28T07:45:00"},
@@ -77,7 +83,6 @@ var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
 ];
 TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", height: 450, width:200, showLabels: true, labelFormat:"%H:%M"});
-
 
 
 var agenda = new Array();
