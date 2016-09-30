@@ -53,6 +53,8 @@ Knot options
 
 It is possible to include or override certain options for particular knots. These options are
 
+* `name`: label displayed *(not optionnal)*
+* `description`: descreption displayed bellow the label
 * `img`: Include the image in this URL when the tooltip is displayed
 * `radius`: Draw this knot with this particular radius
 * `color`: Draw this knot using this particular color
