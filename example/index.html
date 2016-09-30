@@ -26,6 +26,8 @@ body {
  <h2>Stanley Kubrick's movies</h2>
  <h5>Part of Kubrick's Filmography form Wikipedia</h5>
  <div id="timeline1" style="width:500px;"></div>
+ <h3>Different tip sizing</h3>
+ <div id="timeline1_1" style="width:500px;"></div>
  <h2>Numeric, non date data</h2>
  <div id="timelineNonDate" style="width:200px;"></div>
 </div>
@@ -48,18 +50,26 @@ var nonDatedata = [
  {"value": 397, "name": "Player 5" },
  {"value": 418, "name": "Player 6" }
 ];
-TimeKnots.draw("#timelineNonDate", nonDatedata, {dateDimension:false, color: "teal", width:500, showLabels: true, labelFormat: "%Y"});
+TimeKnots.draw("#timelineNonDate", nonDatedata, {dateDimension:false, colorTimeline: "teal", width:500, showLabels: true, labelFormat: "%Y"});
 
-var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg"},
+var kurbickFilms = [{name:"Day of the Fight", description: "Notable for being Kubrick's first directorial effort, Kubrick financed the film himself." , date: "1951-04-26", img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg"},
   {name:"The Seafarers", 	date:"1953-10-15", img: "http://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Seafarers_title.jpg/225px-Seafarers_title.jpg"},
-  {name:"Lolita (1962 film)", 	date:"1962-06-13", img: "http://upload.wikimedia.org/wikipedia/en/thumb/7/72/LolitaPoster.jpg/215px-LolitaPoster.jpg"},
+  {name:"Lolita", 	date:"1962-06-13", img: "http://upload.wikimedia.org/wikipedia/en/thumb/7/72/LolitaPoster.jpg/215px-LolitaPoster.jpg"},
   {name:"Fear and Desire", date:	"1953-03-31", img: "http://upload.wikimedia.org/wikipedia/en/f/f7/Fear_and_Desire_Poster.jpg"},
   {name:"Paths of Glory", date:	"1957-12-25", img: "http://upload.wikimedia.org/wikipedia/en/thumb/b/bc/PathsOfGloryPoster.jpg/220px-PathsOfGloryPoster.jpg"},
-  {name:"A Clockwork Orange (film)", date:	"1971-12-19", img: "http://upload.wikimedia.org/wikipedia/en/thumb/4/48/Clockwork_orangeA.jpg/220px-Clockwork_orangeA.jpg"},
+  {name:"A Clockwork Orange", date:	"1971-12-19", img: "http://upload.wikimedia.org/wikipedia/en/thumb/4/48/Clockwork_orangeA.jpg/220px-Clockwork_orangeA.jpg"},
   {name:"Killer's Kiss", date:	"1955-09-28", img: "http://upload.wikimedia.org/wikipedia/en/thumb/a/a6/KillersKissPoster.jpg/220px-KillersKissPoster.jpg"}
 ];
 
-TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y"});
+TimeKnots.draw("#timeline1", kurbickFilms, {
+  dateFormat: "%B %Y", colorTimeline: "#696", width:500, showLabels: true, labelFormat: "%Y", 
+  onMouseOver: function(circle, tip){console.log("you mouse overed :"+tip.text())},
+  onMouseOut: function(circle, tip){console.log("you mouse out :"+tip.text())}
+});
+
+TimeKnots.draw("#timeline1_1", kurbickFilms, {
+  dateFormat: "%B %Y", colorTimeline: "#696", width:500, showLabels: true, labelFormat: "%Y", tipPosition: 'top'
+});
 
 var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Breakfast", 	date:"2012-09-28T06:30:00"},
@@ -72,8 +82,7 @@ var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Watch a movie", date:	"2012-09-28T20:16:00"},
   {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
 ];
-TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", height: 450, width:200, showLabels: true, labelFormat:"%H:%M"});
-
+TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, colorTimeline: "#669", height: 450, width:200, showLabels: true, labelFormat:"%H:%M"});
 
 
 var agenda = new Array();
@@ -82,10 +91,10 @@ var today = new Date();
 var series = ["Serie1", "Serie 2", "Serie 3"];
 for(var i=-3; i<4; i++){
   var thisdate = new Date(today.getTime() + i*day).toUTCString();
-  var thiscolor = "#44a";
+  var thiscolorTimeline = "#44a";
   var thisname = "Free day";
   if(Math.random()>0.5){
-   thiscolor = "#b00";
+   thiscolorTimeline = "#b00";
    thisname = "Meeting";
   }
   serieId = parseInt(Math.random()*100) %3;
