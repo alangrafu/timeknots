@@ -75,87 +75,49 @@ var TimeKnots = {
       toggle_circle(circles, false);
     }
 
+    function get_datum(d){ return (cfg.dateDimension)?new Date(d.date).getTime():d.value ; }
 
     //Calculate times in terms of timestamps
-    if(!cfg.dateDimension){
-      var timestamps = events.map(function(d){return  d.value});//new Date(d.date).getTime()});
-      var maxValue = d3.max(timestamps);
-      var minValue = d3.min(timestamps);
-    }else{
-      var timestamps = events.map(function(d){return  Date.parse(d.date);});//new Date(d.date).getTime()});
-      var maxValue = d3.max(timestamps);
-      var minValue = d3.min(timestamps);
-    }
+    var timestamps = cfg.dateDimension ? events.map(function(d){return  Date.parse(d.date);}) : events.map(function(d){return  d.value});
+    var maxValue = d3.max(timestamps);
+    var minValue = d3.min(timestamps);
+
     var margin = (d3.max(events.map(function(d){return d.radius})) || cfg.radius)*1.5+cfg.lineWidth;
     var step = (cfg.horizontalLayout)?((cfg.width-2*margin)/(maxValue - minValue)):((cfg.height-2*margin)/(maxValue - minValue));
     var series = [];
     if(maxValue == minValue){step = 0;if(cfg.horizontalLayout){margin=cfg.width/2}else{margin=cfg.height/2}}
 
-    linePrevious = {
-      x1 : null,
-      x2 : null,
-      y1 : null,
-      y2 : null
-    }
+    linePrevious = { x1 : null, x2 : null, y1 : null, y2 : null }
 
     svg.selectAll("line")
     .data(events).enter().append("line")
     .attr("class", "timeline-line")
-      .attr("x1", function(d){
-                      var ret;
-                      if(cfg.horizontalLayout){
-                        var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-                        ret = Math.floor(step*(datum - minValue) + margin)
-                      }
-                      else{
-                        ret = Math.floor(cfg.width/2)
-                      }
-                      linePrevious.x1 = ret
-                      return ret
-                      })
+    .attr("x1", function(d){
+      var ret = cfg.horizontalLayout ? Math.floor(step*( get_datum(d) - minValue) + margin) : Math.floor(cfg.width/2) ;
+      linePrevious.x1 = ret ;
+      return ret
+    })
     .attr("x2", function(d){
-                      if (linePrevious.x1 != null){
-                          return linePrevious.x1
-                      }
-                      if(cfg.horizontalLayout){
-                        var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-                        ret = Math.floor(step*(datum - minValue ))
-                      }
-                      return Math.floor(cfg.width/2)
-                      })
+      if (linePrevious.x1 != null){ return linePrevious.x1 }else{ return Math.floor(cfg.width/2); }
+    })
     .attr("y1", function(d){
-                      var ret;
-                      if(cfg.horizontalLayout){
-                        ret = Math.floor(cfg.height/2)
-                      }
-                      else{
-                        var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-                        ret = Math.floor(step*(datum - minValue)) + margin
-                      }
-                      linePrevious.y1 = ret
-                      return ret
-                      })
+      var ret = cfg.horizontalLayout ? Math.floor(cfg.height/2) : Math.floor(step*(get_datum(d) - minValue)) + margin;
+      linePrevious.y1 = ret
+      return ret
+    })
     .attr("y2", function(d){
-                      if (linePrevious.y1 != null){
-                        return linePrevious.y1
-                      }
-                      if(cfg.horizontalLayout){
-                        return Math.floor(cfg.height/2)
-                      }
-                      var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-                      return Math.floor(step*(datum - minValue))
-                      })
+      if(linePrevious.y1 != null){return linePrevious.y1 }
+      else if(cfg.horizontalLayout){return Math.floor(cfg.height/2)}
+      else{ return Math.floor(step*(get_datum(d) - minValue));}
+    })
     .style("stroke", function(d){
-                      if(d.color != undefined){
-                        return d.color
-                      }
-                      if(d.series != undefined){
-                        if(series.indexOf(d.series) < 0){
-                          series.push(d.series);
-                        }
-                        return cfg.seriesColor(series.indexOf(d.series));
-                      }
-                      return cfg.colorTimeline})
+      if(d.color != undefined){ return d.color }
+      else if(d.series != undefined){
+        if(series.indexOf(d.series) < 0){series.push(d.series); }
+        return cfg.seriesColor(series.indexOf(d.series));
+      }
+      else{return cfg.colorTimeline;}
+    })
     .style("stroke-width", cfg.lineWidth);
 
     svg.selectAll("circle")
@@ -164,34 +126,25 @@ var TimeKnots = {
     .attr("class", "timeline-event")
     .attr("r", function(d){if(d.radius != undefined){return d.radius} return cfg.radius})
     .style("stroke", function(d){
-                    if(d.color != undefined){
-                      return d.color
-                    }
-                    if(d.series != undefined){
-                      if(series.indexOf(d.series) < 0){
-                        series.push(d.series);
-                      }
-                      console.log(d.series, series, series.indexOf(d.series));
-                      return cfg.seriesColor(series.indexOf(d.series));
-                    }
-                    return cfg.colorTimeline}
+      if(d.color != undefined){return d.color }
+      if(d.series != undefined){
+        if(series.indexOf(d.series) < 0){series.push(d.series); }
+        console.log(d.series, series, series.indexOf(d.series));
+        return cfg.seriesColor(series.indexOf(d.series));
+      }
+      return cfg.colorTimeline}
     )
     .style("stroke-width", function(d){if(d.lineWidth != undefined){return d.lineWidth} return cfg.lineWidth})
     .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.backgroundCircle})
     .attr("cy", function(d){
-        if(cfg.horizontalLayout){
-          return Math.floor(cfg.height/2)
-        }
-        var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-        return Math.floor(step*(datum - minValue) + margin)
+      if(cfg.horizontalLayout){return Math.floor(cfg.height/2) }
+      else{ return Math.floor(step*(get_datum(d) - minValue) + margin);}
     })
     .attr("cx", function(d){
-        if(cfg.horizontalLayout){
-          var datum = (cfg.dateDimension)?new Date(d.date).getTime():d.value;
-          var x=  Math.floor(step*(datum - minValue) + margin);
-          return x;
-        }
-        return Math.floor(cfg.width/2)
+      if(cfg.horizontalLayout){
+        var x=  Math.floor(step*(get_datum(d) - minValue) + margin);
+        return x;
+      }else{return Math.floor(cfg.width/2);}
     }).on("mouseover", function(d){
       if(cfg.dateDimension){
         var format = d3.time.format(cfg.dateFormat);
