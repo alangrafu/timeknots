@@ -160,7 +160,7 @@ var TimeKnots = {
       if(d.img != undefined){tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px"); }
       tip.append("strong").text(d.name).style('font-weight','bold');
       if (datetime != ""){tip.append("date").text(datetime).style("display", "inline-block").style("margin-left", "10px") }
-      if (d.description != undefined){tip.append("span").text(d.description).style("display", "block"); }
+      if (d.description != undefined){tip.append("span").html(d.description).style("display", "block"); }
       
       // if top position is not sdefined, we set float-left to the tip
       if(tip_position_top ){reset_circles();}
