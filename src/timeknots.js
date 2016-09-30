@@ -146,25 +146,26 @@ var TimeKnots = {
         return x;
       }else{return Math.floor(cfg.width/2);}
     }).on("mouseover", function(d){
+      //create text
       if(cfg.dateDimension){
         var format = d3.time.format(cfg.dateFormat);
         var datetime = format(new Date(d.date));
-        var dateValue = (datetime != "")?(d.name +" <small>("+datetime+")</small>"):d.name;
       }else{
         var format = function(d){return d}; // TODO
         var datetime = d.value;
-        var dateValue = d.name +" <small>("+d.value+")</small>";
       }
+      var tipText = d.name ;
+
+      tip.html("");
+      if(d.img != undefined){tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px"); }
+      tip.append("strong").text(d.name).style('font-weight','bold');
+      if (datetime != ""){tip.append("date").text(datetime).style("display", "inline-block").style("margin-left", "10px") }
+      if (d.description != undefined){tip.append("span").text(d.description).style("display", "block"); }
       
-
-      tip.html(dateValue);
-      if(d.img != undefined){
-        tip.append("img").style("float", "left").style("margin-right", "4px").attr("src", d.img).attr("width", "64px");
-      }
       // if top position is not sdefined, we set float-left to the tip
-      if(tip_position_top ){reset_circles();
+      if(tip_position_top ){reset_circles();}
+      else{tip.append("div").style("float", "left"); }
 
-      }else{tip.append("div").style("float", "left"); }
       toggle_circle(d3.select(this), true);
       toggle_tip(tip, true);
 
