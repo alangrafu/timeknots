@@ -91,7 +91,7 @@ for(var i=-3; i<4; i++){
   serieId = parseInt(Math.random()*100) %3;
   thisseries = series[serieId];
   var thiswidth = (i<0)?1:5;
-  agenda.push({date: thisdate, name: thisname,  series: thisseries })
+  agenda.push({date: thisdate, name: thisname, series: thisseries, color:thiscolor})
 }
 TimeKnots.draw("#timeline3", agenda, {dateFormat: "%A", radius: 20});
 
