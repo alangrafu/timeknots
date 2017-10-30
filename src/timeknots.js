@@ -177,6 +177,12 @@ var TimeKnots = {
       .style("opacity", .9);
 
     })
+    .on("click", function(d){
+        d3.select(this);
+        if(d.url != undefined) {
+            window.location.href = d.url;
+        }
+    })
     .on("mouseout", function(){
         d3.select(this)
         .style("fill", function(d){if(d.background != undefined){return d.background} return cfg.background}).transition()
