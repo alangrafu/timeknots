@@ -1,10 +1,17 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-<script src="../src/d3.v2.min.js" type="application/javascript"></script>
-<script src="../src/timeknots.js" type="application/javascript"></script>
-<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
-<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <script
+         src="https://code.jquery.com/jquery-3.2.1.min.js"
+         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+         crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+ <script src="../src/d3.v2.min.js" type="application/javascript"></script>
+ <script src="../src/timeknots.js" type="application/javascript"></script>
 <style>
 body {
   font: 18px "Helvetica Neue";
@@ -24,7 +31,7 @@ body {
 <div class="fluid-row">
 <div class="span3">
  <h2>Stanley Kubrick's movies</h2>
- <h5>Part of Kubrick's Filmography form Wikipedia</h5>
+ <h5>Part of Kubrick's Filmography form Wikipedia with links to each page</h5>
  <div id="timeline1" style="width:500px;"></div>
  <h2>Numeric, non date data</h2>
  <div id="timelineNonDate" style="width:200px;"></div>
@@ -50,13 +57,13 @@ var nonDatedata = [
 ];
 TimeKnots.draw("#timelineNonDate", nonDatedata, {dateDimension:false, color: "teal", width:500, showLabels: true, labelFormat: "%Y"});
 
-var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26", img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg"},
-  {name:"The Seafarers", 	date:"1953-10-15", img: "http://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Seafarers_title.jpg/225px-Seafarers_title.jpg"},
-  {name:"Lolita (1962 film)", 	date:"1962-06-13", img: "http://upload.wikimedia.org/wikipedia/en/thumb/7/72/LolitaPoster.jpg/215px-LolitaPoster.jpg"},
-  {name:"Fear and Desire", date:	"1953-03-31", img: "http://upload.wikimedia.org/wikipedia/en/f/f7/Fear_and_Desire_Poster.jpg"},
-  {name:"Paths of Glory", date:	"1957-12-25", img: "http://upload.wikimedia.org/wikipedia/en/thumb/b/bc/PathsOfGloryPoster.jpg/220px-PathsOfGloryPoster.jpg"},
-  {name:"A Clockwork Orange (film)", date:	"1971-12-19", img: "http://upload.wikimedia.org/wikipedia/en/thumb/4/48/Clockwork_orangeA.jpg/220px-Clockwork_orangeA.jpg"},
-  {name:"Killer's Kiss", date:	"1955-09-28", img: "http://upload.wikimedia.org/wikipedia/en/thumb/a/a6/KillersKissPoster.jpg/220px-KillersKissPoster.jpg"}
+var kurbickFilms = [{name:"Day of the Fight", date: "1951-04-26",modal:"myModal",  img: "http://upload.wikimedia.org/wikipedia/en/thumb/c/c4/Day_of_the_Fight_title.jpg/215px-Day_of_the_Fight_title.jpg"},
+  {name:"The Seafarers", 	date:"1953-10-15", url:"https://en.wikipedia.org/wiki/The_Seafarers", img: "http://upload.wikimedia.org/wikipedia/en/thumb/6/6c/Seafarers_title.jpg/225px-Seafarers_title.jpg"},
+  {name:"Lolita (1962 film)", 	date:"1962-06-13", url:"https://en.wikipedia.org/wiki/Lolita_(1962_film)", img: "http://upload.wikimedia.org/wikipedia/en/thumb/7/72/LolitaPoster.jpg/215px-LolitaPoster.jpg"},
+  {name:"Fear and Desire", date:	"1953-03-31", url:"https://en.wikipedia.org/wiki/Fear_and_Desire", img: "http://upload.wikimedia.org/wikipedia/en/f/f7/Fear_and_Desire_Poster.jpg"},
+  {name:"Paths of Glory", date:	"1957-12-25", url:"https://en.wikipedia.org/wiki/Paths_of_Glory", img: "http://upload.wikimedia.org/wikipedia/en/thumb/b/bc/PathsOfGloryPoster.jpg/220px-PathsOfGloryPoster.jpg"},
+  {name:"A Clockwork Orange (film)", date:	"1971-12-19", url:"https://en.wikipedia.org/wiki/A_Clockwork_Orange_(film)", img: "http://upload.wikimedia.org/wikipedia/en/thumb/4/48/Clockwork_orangeA.jpg/220px-Clockwork_orangeA.jpg"},
+  {name:"Killer's Kiss", date:	"1955-09-28", url: "https://en.wikipedia.org/wiki/Killer%27s_Kiss", img: "http://upload.wikimedia.org/wikipedia/en/thumb/a/a6/KillersKissPoster.jpg/220px-KillersKissPoster.jpg"}
 ];
 
 TimeKnots.draw("#timeline1", kurbickFilms, {dateFormat: "%B %Y", color: "#696", width:500, showLabels: true, labelFormat: "%Y"});
@@ -73,7 +80,6 @@ var mySchedule = [{name:"Wake up", date: "2012-09-28T06:00:00"},
   {name:"Go to sleep", date:	"2012-09-28T23:00:00"}
 ];
 TimeKnots.draw("#timeline2", mySchedule, {horizontalLayout: false, color: "#669", height: 450, width:200, showLabels: true, labelFormat:"%H:%M"});
-
 
 
 var agenda = new Array();
@@ -97,6 +103,22 @@ TimeKnots.draw("#timeline3", agenda, {dateFormat: "%A", radius: 20});
 
 
 </script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+ <div class="modal-dialog" role="document">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+   </div>
+   <div class="modal-body">
+    <p>One fine body&hellip;</p>
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+   </div>
+  </div><!-- /.modal-content -->
+ </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 </html>
