@@ -182,6 +182,11 @@ var TimeKnots = {
         if(d.url != undefined) {
             window.location.href = d.url;
         }
+        if(d.modal != undefined)
+        {
+            console.log("#"+d.modal);
+            $("#"+d.modal).modal();
+        }
     })
     .on("mouseout", function(){
         d3.select(this)
